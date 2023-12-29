@@ -1,0 +1,29 @@
+# Setting The Database Details
+#-----------------------------------------------------
+spring.datasource.url=jdbc:oracle:thin:@localhost:1521:orcl
+spring.datasource.username=c##rohit
+spring.datasource.password=rohit
+
+
+# Setting The JPA Properties
+#-----------------------------------------------------
+spring.jpa.show-sql=true
+spring.jpa.hibernate.ddl-auto=update
+
+# Email Properties
+#-----------------------------------------------------
+spring.mail.host=smtp.gmail.com
+spring.mail.port=587
+spring.mail.username=torameshwarsingh@gmail.com
+spring.mail.password=aczouukdputrigob
+spring.mail.properties.mail.smtp.auth=true
+spring.mail.properties.mail.smtp.starttls.enable=true
+
+
+
+
+
+
+
+
+
