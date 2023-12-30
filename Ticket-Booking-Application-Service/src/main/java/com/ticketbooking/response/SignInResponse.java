@@ -4,7 +4,7 @@ import lombok.Data;
 @Data
 public class SignInResponse {
 
-    private String fisrtName;
+    private String firstName;
 
     private String lastName;
 

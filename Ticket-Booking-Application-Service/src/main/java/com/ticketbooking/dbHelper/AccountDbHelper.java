@@ -45,4 +45,8 @@ public class AccountDbHelper {
     public Account findByResetToken(String resetToken) {
         return repository.findByResetToken(resetToken);
     }
+
+    public Account updateAccountDetails(Account updateAccount) {
+        return repository.save(updateAccount);
+    }
 }

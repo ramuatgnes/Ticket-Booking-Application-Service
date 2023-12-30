@@ -3,11 +3,9 @@ package com.ticketbooking.mapper.impl;
 import com.ticketbooking.constants.Constants;
 import com.ticketbooking.entity.Account;
 import com.ticketbooking.mapper.AccountMapper;
+import com.ticketbooking.request.AccountUpdateRequest;
 import com.ticketbooking.request.SignUpRequest;
-import com.ticketbooking.response.SendForgetPasswordCodeResponse;
-import com.ticketbooking.response.SendVerificationResponse;
-import com.ticketbooking.response.SignInResponse;
-import com.ticketbooking.response.SignUpResponse;
+import com.ticketbooking.response.*;
 import com.ticketbooking.utils.AppUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,7 +63,7 @@ public class AccountMapperImpl implements AccountMapper {
     @Override
     public SignInResponse prepareSignInResponse(Account account) {
         SignInResponse response = new SignInResponse();
-        response.setFisrtName(account.getFirstName());
+        response.setFirstName(account.getFirstName());
         response.setLastName(account.getLastName());
         response.setEmail(account.getEmail());
         response.setType(account.getType());
@@ -77,6 +75,20 @@ public class AccountMapperImpl implements AccountMapper {
     public SendForgetPasswordCodeResponse prepareForgotPasswordResponse(Account account) {
         SendForgetPasswordCodeResponse response = new SendForgetPasswordCodeResponse();
         response.setEmail(account.getEmail());
+        return response;
+    }
+
+    @Override
+    public Account updateAccount(Account byEmail, AccountUpdateRequest request) {
+        byEmail.setFirstName(request.getFirstName() == null || request.getFirstName() == "" ? byEmail.getFirstName() : request.getFirstName());
+        byEmail.setLastName(request.getLastName() == null || request.getLastName() == "" ? byEmail.getLastName() : request.getLastName());
+        return byEmail;
+    }
+
+    @Override
+    public AccountUpdateResponse updateResponse(Account updateAccount) {
+        AccountUpdateResponse response = new AccountUpdateResponse();
+        response.setId(updateAccount.getAccountId());
         return response;
     }
 }

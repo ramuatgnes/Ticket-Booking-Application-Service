@@ -1,10 +1,7 @@
 package com.ticketbooking.controller;
 
 import com.ticketbooking.request.*;
-import com.ticketbooking.response.SendForgetPasswordCodeResponse;
-import com.ticketbooking.response.SendVerificationResponse;
-import com.ticketbooking.response.SignInResponse;
-import com.ticketbooking.response.SignUpResponse;
+import com.ticketbooking.response.*;
 import com.ticketbooking.service.AccountService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,5 +54,14 @@ public class AccountController {
         return new ResponseEntity<>(service.changePassword(accountId, request), HttpStatus.OK);
     }
 
+    @GetMapping("/email/{email}")
+    public ResponseEntity<SignInResponse> getByEmail(@PathVariable String email) {
+        return new ResponseEntity<>(service.getByEmail(email), HttpStatus.OK);
+    }
+
+    @PutMapping("/update/{email}")
+    public ResponseEntity<AccountUpdateResponse> updateAccount(@PathVariable String email,@RequestBody AccountUpdateRequest request) {
+        return new ResponseEntity<AccountUpdateResponse>(service.updateAccount(email,request), HttpStatus.OK);
+    }
 
 }

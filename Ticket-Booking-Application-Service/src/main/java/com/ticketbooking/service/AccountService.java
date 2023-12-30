@@ -1,10 +1,7 @@
 package com.ticketbooking.service;
 
 import com.ticketbooking.request.*;
-import com.ticketbooking.response.SendForgetPasswordCodeResponse;
-import com.ticketbooking.response.SendVerificationResponse;
-import com.ticketbooking.response.SignInResponse;
-import com.ticketbooking.response.SignUpResponse;
+import com.ticketbooking.response.*;
 
 public interface AccountService {
 
@@ -21,4 +18,8 @@ public interface AccountService {
     SignInResponse resetPassword(String resetToken, forgotPasswordRequest request);
 
     SignInResponse changePassword(Integer accountId, ChangePasswordRequest request);
+
+    SignInResponse getByEmail(String email);
+
+    AccountUpdateResponse updateAccount(String email, AccountUpdateRequest request);
 }

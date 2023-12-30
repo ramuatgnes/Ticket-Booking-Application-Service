@@ -8,17 +8,12 @@ import com.ticketbooking.exception.*;
 import com.ticketbooking.helper.AccountHelper;
 import com.ticketbooking.mapper.AccountMapper;
 import com.ticketbooking.request.*;
-import com.ticketbooking.response.SendForgetPasswordCodeResponse;
-import com.ticketbooking.response.SendVerificationResponse;
-import com.ticketbooking.response.SignInResponse;
-import com.ticketbooking.response.SignUpResponse;
+import com.ticketbooking.response.*;
 import com.ticketbooking.service.AccountService;
 import com.ticketbooking.utils.AppUtils;
 import com.ticketbooking.utils.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service
 public class AccountServiceImpl implements AccountService {
@@ -67,7 +62,7 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public SendVerificationResponse verifyVerificationCode(Integer accountId, VerificationRequest request) {
-         Account byId = accountDbHelper.findById(accountId).get();
+        Account byId = accountDbHelper.findById(accountId).get();
         if (byId == null) {
             throw new DataNotFoundException(ErrorMessageConstant.ACCOUNT_DETAILS_NOT_FOUND);
         }
@@ -154,11 +149,34 @@ public class AccountServiceImpl implements AccountService {
                 if (account != null) {
                     return accountMapper.prepareSignInResponse(account);
                 }
-            }else{
+            } else {
                 throw new SomthingIsWorngException(ErrorMessageConstant.SOMETHING_WENT_WRONG);
             }
-        }else{
+        } else {
             throw new AccountNotFoundException(ErrorMessageConstant.ACCOUNT_DETAILS_NOT_FOUND);
+        }
+        return null;
+    }
+
+    @Override
+    public SignInResponse getByEmail(String email) {
+        Account byEmail = accountDbHelper.findByEmail(email);
+        if (byEmail == null) {
+            throw new AccountNotFoundException(ErrorMessageConstant.ACCOUNT_DETAILS_NOT_FOUND);
+        }
+        return accountMapper.prepareSignInResponse(byEmail);
+    }
+
+    @Override
+    public AccountUpdateResponse updateAccount(String email, AccountUpdateRequest request) {
+        Account byEmail = accountDbHelper.findByEmail(email);
+        if (byEmail == null) {
+            throw new AccountNotFoundException(ErrorMessageConstant.ACCOUNT_DETAILS_NOT_FOUND);
+        }
+        Account updateAccount = accountMapper.updateAccount(byEmail, request);
+        Account account = accountDbHelper.updateAccountDetails(updateAccount);
+        if (account != null) {
+            return accountMapper.updateResponse(account);
         }
         return null;
     }
