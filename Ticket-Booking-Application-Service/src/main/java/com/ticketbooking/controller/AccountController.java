@@ -60,8 +60,8 @@ public class AccountController {
     }
 
     @PutMapping("/update/{email}")
-    public ResponseEntity<AccountUpdateResponse> updateAccount(@PathVariable String email,@RequestBody AccountUpdateRequest request) {
-        return new ResponseEntity<AccountUpdateResponse>(service.updateAccount(email,request), HttpStatus.OK);
+    public ResponseEntity<AccountUpdateResponse> updateAccount(@PathVariable String email, @RequestBody AccountUpdateRequest request) {
+        return new ResponseEntity<AccountUpdateResponse>(service.updateAccount(email, request), HttpStatus.OK);
     }
 
 }

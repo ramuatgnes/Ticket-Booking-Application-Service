@@ -50,7 +50,7 @@ public class AccountServiceImpl implements AccountService {
     public SendVerificationResponse sendVerificationCode(String email) {
         Account byEmail = accountDbHelper.findByEmail(email);
         if (byEmail == null) {
-            throw new AccountNotFoundException(ErrorMessageConstant.EMAILID_NOT_FOUND);
+            throw new AccountNotFoundException(ErrorMessageConstant.EMAIL_ID_NOT_FOUND);
         }
         //sending the vairefication code
         Account account = accountMapper.prepareVerificationCode(byEmail);
@@ -89,13 +89,13 @@ public class AccountServiceImpl implements AccountService {
     public SignInResponse signInAccount(SignInRequest signIn) {
         Account byEmail = accountDbHelper.findByEmail(signIn.getEmail());
         if (byEmail == null) {
-            throw new AccountNotFoundException(ErrorMessageConstant.EMAILID_NOT_FOUND);
+            throw new AccountNotFoundException(ErrorMessageConstant.EMAIL_ID_NOT_FOUND);
         }
         if (byEmail.getVerificationStatus().equals(Constants.ACCOUNT_VERIFICATION_VERIFIED)) {
 
             Account account = accountDbHelper.findByEmailAndPassword(byEmail.getEmail(), signIn.getPassword());
             if (account == null) {
-                throw new IncorrectLoginCredential(ErrorMessageConstant.WRONG_EMAILID_OR_PASSWORD);
+                throw new IncorrectLoginCredential(ErrorMessageConstant.YOUR_EMAIL_ID_OR_PASSWORD_WRONG);
             }
 
             return accountMapper.prepareSignInResponse(account);

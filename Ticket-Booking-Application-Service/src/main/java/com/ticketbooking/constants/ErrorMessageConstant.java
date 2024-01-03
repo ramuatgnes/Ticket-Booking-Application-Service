@@ -6,9 +6,10 @@ public class ErrorMessageConstant {
     public static final String ACCOUNT_DETAILS_NOT_FOUND = "Account Details Not Found";
 
     public static final String VERIFICATION_CODE_MISMATCH = "Verification Code Mismatch";
-    public static final String EMAILID_NOT_FOUND="Email Id Not Found";
+    public static final String EMAIL_ID_NOT_FOUND = "Email Id Not Found";
 
-    public static final String WRONG_EMAILID_OR_PASSWORD="Your Email Id or Password Wrong";
+    public static final String YOUR_EMAIL_ID_OR_PASSWORD_WRONG = "Your Email Id or Password Wrong";
+    public static final String VEHICLE_ALREADY_EXITS = "Vehicle Already Exits ";
 
 
 }
