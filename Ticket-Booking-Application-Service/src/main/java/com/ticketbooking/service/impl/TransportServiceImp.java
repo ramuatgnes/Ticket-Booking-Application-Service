@@ -8,8 +8,10 @@ import com.ticketbooking.exception.VehicleAllredyExits;
 import com.ticketbooking.exception.VehicleNotExitsException;
 import com.ticketbooking.mapper.TransportMapper;
 import com.ticketbooking.request.CreateVehicleRequest;
+import com.ticketbooking.request.UpdateVehicleRequest;
 import com.ticketbooking.response.RegisterVehicleResponse;
 import com.ticketbooking.response.RemoveVehicleResponce;
+import com.ticketbooking.response.UpadateVehicleResponce;
 import com.ticketbooking.service.TransportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -42,14 +44,28 @@ public class TransportServiceImp implements TransportService {
         Transport byVehicleNo = dbHelper.findByVehicleNo(vehicleNumber);
         if (byVehicleNo == null) {
             throw new VehicleNotExitsException(ErrorMessageConstant.VEHICLE_NOT_EXITS);
-        } else {
-            boolean removed = dbHelper.removeVehicleByNumber(vehicleNumber);
-            if (removed) {
-                return transportMapper.removeVehicleResponce(byVehicleNo);
-            } else
-                new SomthingIsWorngException(ErrorMessageConstant.SOMETHING_WENT_WRONG);
-
         }
+        boolean removed = dbHelper.removeVehicleByNumber(vehicleNumber);
+        if (removed) {
+            return transportMapper.removeVehicleResponce(byVehicleNo);
+        } else
+            new SomthingIsWorngException(ErrorMessageConstant.SOMETHING_WENT_WRONG);
+
         return null;
+    }
+
+    @Override
+    public UpadateVehicleResponce updateVehicle(UpdateVehicleRequest request) {
+        Transport byVehicleNo = dbHelper.findByVehicleNo(request.getVehicleNo());
+        if (byVehicleNo == null) {
+            throw new VehicleNotExitsException(ErrorMessageConstant.VEHICLE_NOT_EXITS);
+        }
+        Transport transport = transportMapper.setUpdateToEntity(request);
+        if (transport != null) {
+            if (dbHelper.saveUpdateVehicle(transport) != null) {
+                return transportMapper.setUpdateResponce(transport);
+            }
+        }
+        throw new SomthingIsWorngException(ErrorMessageConstant.SOMETHING_WENT_WRONG);
     }
 }

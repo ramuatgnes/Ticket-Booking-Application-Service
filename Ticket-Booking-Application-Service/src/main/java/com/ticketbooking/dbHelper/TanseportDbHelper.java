@@ -28,4 +28,9 @@ public class TanseportDbHelper {
             return false;
         }
     }
+
+    public Transport saveUpdateVehicle(Transport transport) {
+        Transport updateVehicle = repository.save(transport);
+        return updateVehicle;
+    }
 }
