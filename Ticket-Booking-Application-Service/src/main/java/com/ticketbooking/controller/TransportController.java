@@ -25,13 +25,13 @@ public class TransportController {
 
     //to remove the Vehicle mail Update Vehicle is deleted To booked User...
     @DeleteMapping(path = "/remove-vehicle/{vehicleNumber}")
-    public ResponseEntity<RemoveVehicleResponce> removeVehicle(@PathVariable String vehicleNumber) {
+    public ResponseEntity<RemoveVehicleResponce> removeVehicle(@Valid @PathVariable String vehicleNumber) {
         return new ResponseEntity<RemoveVehicleResponce>(service.removeVehicle(vehicleNumber), HttpStatus.OK);
     }
 
     //Update Request & sending mail Update Vehicle To booked User...
     @PutMapping(path = "update-vehicle")
-    public ResponseEntity<UpadateVehicleResponce> upadateVehicle(@RequestBody UpdateVehicleRequest request) {
+    public ResponseEntity<UpadateVehicleResponce> upadateVehicle(@Valid @RequestBody UpdateVehicleRequest request) {
         return new ResponseEntity<UpadateVehicleResponce>(service.updateVehicle(request), HttpStatus.OK);
     }
 }
