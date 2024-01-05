@@ -19,4 +19,13 @@ public class TanseportDbHelper {
     }
 
 
+    public boolean removeVehicleByNumber(String vehicleNumber) {
+        Transport byVehicleNo = repository.findByVehicleNo(vehicleNumber);
+        if (byVehicleNo != null) {
+            repository.delete(byVehicleNo);
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
