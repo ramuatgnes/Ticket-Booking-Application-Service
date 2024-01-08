@@ -9,12 +9,12 @@ import com.ticketbooking.exception.VehicleNotExitsException;
 import com.ticketbooking.mapper.TransportMapper;
 import com.ticketbooking.request.CreateVehicleRequest;
 import com.ticketbooking.request.UpdateVehicleRequest;
-import com.ticketbooking.response.RegisterVehicleResponse;
-import com.ticketbooking.response.RemoveVehicleResponce;
-import com.ticketbooking.response.UpadateVehicleResponce;
+import com.ticketbooking.response.*;
 import com.ticketbooking.service.TransportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class TransportServiceImp implements TransportService {
@@ -25,6 +25,7 @@ public class TransportServiceImp implements TransportService {
 
     @Override
     public RegisterVehicleResponse registerVehicle(CreateVehicleRequest request) {
+        System.out.println(request);
         Transport byVehicleNo = dbHelper.findByVehicleNo(request.getVehicleNo());
         if (byVehicleNo != null) {
             throw new VehicleAllredyExits(ErrorMessageConstant.VEHICLE_ALREADY_EXITS);
@@ -67,5 +68,26 @@ public class TransportServiceImp implements TransportService {
             }
         }
         throw new SomthingIsWorngException(ErrorMessageConstant.SOMETHING_WENT_WRONG);
+    }
+
+    @Override
+    public GetVehicleResponse getVehicleByNumber(String vehicleNumber) {
+        Transport byVehicleNo = dbHelper.findByVehicleNo(vehicleNumber);
+        if (byVehicleNo != null) {
+            transportMapper.getVehicleByNumber(byVehicleNo);
+        } else {
+            throw new VehicleNotExitsException(ErrorMessageConstant.VEHICLE_NOT_EXITS);
+        }
+        throw new SomthingIsWorngException(ErrorMessageConstant.SOMETHING_WENT_WRONG);
+    }
+
+    @Override
+    public List<GetVehicleResponse> getAllVehivle() {
+        List<Transport> allVehicleData = dbHelper.getAllVehicleData();
+        if (allVehicleData == null) {
+            throw new SomthingIsWorngException(ErrorMessageConstant.SOMETHING_WENT_WRONG);
+        }
+        return transportMapper.getAllVehicleResponse(allVehicleData);
+
     }
 }

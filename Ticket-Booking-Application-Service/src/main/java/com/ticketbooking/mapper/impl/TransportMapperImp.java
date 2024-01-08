@@ -4,17 +4,30 @@ import com.ticketbooking.entity.Transport;
 import com.ticketbooking.mapper.TransportMapper;
 import com.ticketbooking.request.CreateVehicleRequest;
 import com.ticketbooking.request.UpdateVehicleRequest;
-import com.ticketbooking.response.RegisterVehicleResponse;
-import com.ticketbooking.response.RemoveVehicleResponce;
-import com.ticketbooking.response.UpadateVehicleResponce;
+import com.ticketbooking.response.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class TransportMapperImp implements TransportMapper {
     @Autowired
     ModelMapper mapper;
+
+    @Override
+    public GetVehicleResponse getVehicleByNumber(Transport byVehicleNo) {
+        return mapper.map(byVehicleNo, GetVehicleResponse.class);
+    }
+
+    @Override
+    public List<GetVehicleResponse> getAllVehicleResponse(List<Transport> list) {
+        return list.stream()
+                .map(data -> mapper.map(data, GetVehicleResponse.class))
+                .collect(Collectors.toList());
+    }
 
     @Override
     public Transport vehicleRequestToEntity(CreateVehicleRequest request) {

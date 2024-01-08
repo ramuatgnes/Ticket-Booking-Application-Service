@@ -5,6 +5,8 @@ import com.ticketbooking.repository.TanseportRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class TanseportDbHelper {
     @Autowired
@@ -32,5 +34,9 @@ public class TanseportDbHelper {
     public Transport saveUpdateVehicle(Transport transport) {
         Transport updateVehicle = repository.save(transport);
         return updateVehicle;
+    }
+
+    public List<Transport> getAllVehicleData() {
+        return repository.findAll();
     }
 }

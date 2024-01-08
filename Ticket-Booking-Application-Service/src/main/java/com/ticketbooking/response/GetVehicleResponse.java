@@ -7,9 +7,9 @@ import java.util.Date;
 import java.util.List;
 
 @Data
-public class RegisterVehicleResponse implements Serializable {
+public class GetVehicleResponse implements Serializable {
 
-    private String TransportType;
+    private  String TransportType;
 
     private String vehicleNo;
 
@@ -23,9 +23,9 @@ public class RegisterVehicleResponse implements Serializable {
 
     private String distance;
 
-    private List<String> stops;
-
     private List<String> noOfDay;
+
+    private List<String> stops;
 
     private Float fair;
 

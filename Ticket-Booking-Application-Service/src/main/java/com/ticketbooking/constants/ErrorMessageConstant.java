@@ -11,4 +11,5 @@ public class ErrorMessageConstant {
     public static final String YOUR_EMAIL_ID_OR_PASSWORD_WRONG = "Your Email Id or Password Wrong";
     public static final String VEHICLE_ALREADY_EXITS = "Vehicle Already Exits ";
     public static final String VEHICLE_NOT_EXITS = "Vehicle Not Exits.";
+    public static final String THERE_IS_NO_TRAVAILS_AVAILABLE = "There is no Service Available";
 }

@@ -37,6 +37,9 @@ public class Transport {
     private List<String> noOfDay;
 
     @Column
+    private List<String> stops;
+
+    @Column
     private Float fair;
 
     @Column
